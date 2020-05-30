@@ -19,14 +19,14 @@ client.connect((err) => {
     const collection = db.collection('tweets');
 
     //find all and store in Array
-    collection.find({}, {
+    collection.find({
+        title: 'Water'
+    }, {
         projection: { 
-            title: 1,
-            author:1,
             _id: 0 }
     }).toArray((err, docs) => {
         assert.equal(err, null);
-        console.log(`Found the ${docs.length} documents:`);
+        console.log(`Found ${docs.length} document(s):`);
         console.log(docs);
         client.close();
     });
