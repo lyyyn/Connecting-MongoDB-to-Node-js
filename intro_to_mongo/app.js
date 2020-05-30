@@ -18,17 +18,13 @@ client.connect((err) => {
     let db = client.db(dbName);
     const collection = db.collection('tweets');
 
-    //find all and store in Array
-    collection.find({
+    //find one docs only
+    collection.findOne({
         likes: { $gte: 20 }
-    }, {
-        projection: {
-            _id: 0
-        }
-    }).toArray((err, docs) => {
+    },(err, doc) => {
         assert.equal(err, null);
-        console.log(`Found ${docs.length} document(s):`);
-        console.log(docs);
+        console.log(`Found 1 document:`);
+        console.log(doc);
         client.close();
     });
 
