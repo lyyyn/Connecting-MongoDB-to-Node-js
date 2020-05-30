@@ -18,10 +18,10 @@ client.connect((err) => {
     let db = client.db(dbName);
     const collection = db.collection('tweets');
 
-    collection.deleteOne({
-        title: 'Deep Thoughts'
+    collection.deleteMany({
+        title: 'Organic'
     }).then(result => {
-        assert.equal(1, result.result.n);
+        assert.equal(2, result.result.n);
         console.log('remove from collection');
         client.close();
     }).catch(err => {
