@@ -17,7 +17,9 @@ client.connect((err) => {
 
     let db = client.db(dbName);
 
-    client.close();
+    // client.close(); //close db connection immediately
 });
 
-// // setTimeout(()=>{client.close();}, 5000);
+setTimeout(()=>{ //use timeout to close the db connection
+    client.close();
+}, 5000);
