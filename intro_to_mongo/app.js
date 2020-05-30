@@ -10,16 +10,29 @@ const dbName = 'tweets';
 // Create a new MongoClient
 const client = new MongoClient(url, { useUnifiedTopology: true }); //this is to hide the warning
 
+//My first tweet
+const myFirstTweet = {
+    title: 'Deep Thoughts',
+    body: 'Friends, I have been navel-gazing',
+    author: 'Karolin'
+}
+
 // Use connect method to connect to the Server
 client.connect((err) => {
     assert.equal(null, err);
     console.log('Connected successfully to Mongo server');
 
     let db = client.db(dbName);
+    const collection = db.collection('tweets');
+    collection.insertOne(myFirstTweet, (err, result) => {
+        assert.equal(null,err);
+        console.log(result);
+        client.close(); //need to close db at the collection - async
+    });
 
-    // client.close(); //close db connection immediately
+    
 });
 
-setTimeout(()=>{ //use timeout to close the db connection
-    client.close();
-}, 5000);
+// setTimeout(()=>{ //use timeout to close the db connection
+//     client.close();
+// }, 5000);
