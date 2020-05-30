@@ -18,16 +18,15 @@ client.connect((err) => {
     let db = client.db(dbName);
     const collection = db.collection('tweets');
 
-    //find one docs only
-    collection.find({
-        likes: { $gte: 20 }
-    }).toArray().then(doc => {
-        console.log(`Search result:`);
-        console.log(doc);
+    collection.deleteOne({
+        title: 'Deep Thoughts'
+    }).then(result => {
+        assert.equal(1, result.result.n);
+        console.log('remove from collection');
         client.close();
     }).catch(err => {
         assert.equal(err, null);
-    });
+    })
 
 });
 
