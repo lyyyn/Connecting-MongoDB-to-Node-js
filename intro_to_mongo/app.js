@@ -18,15 +18,17 @@ client.connect((err) => {
     let db = client.db(dbName);
     const collection = db.collection('tweets');
 
-    collection.deleteMany({
-        title: 'Organic'
-    }).then(result => {
-        assert.equal(2, result.result.n);
-        console.log('remove from collection');
-        client.close();
-    }).catch(err => {
+    collection.updateOne({
+        title: 'Vespa'
+    }, {
+        $set: {
+            sponsored: true
+        }
+    }, (err, result) => {
         assert.equal(err, null);
-    })
+        assert.equal(1, result.result.n);
+        client.close();
+    });
 
 });
 
