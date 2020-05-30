@@ -20,14 +20,15 @@ client.connect((err) => {
 
     collection.updateOne({
         title: 'Vespa'
-    }, {
+    },{
         $set: {
             sponsored: true
         }
-    }, (err, result) => {
-        assert.equal(err, null);
-        assert.equal(1, result.result.n);
+    }).then(result => {
+        assert.equal(2, result.result.n);
         client.close();
+    }).catch(err => {
+        assert.equal(err, null);
     });
 
 });
