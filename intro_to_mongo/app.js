@@ -18,15 +18,21 @@ client.connect((err) => {
     let db = client.db(dbName);
     const collection = db.collection('tweets');
 
-    collection.countDocuments({
+    collection.find({
         likes: {
             $gte: 20
         }
-    }).then(count => {
-        console.log(count);
-        client.close();
-    }).catch(err => {
+    }).project({
+        'title': 1,
+        'body': 1,
+        'likes': 1,
+        '_id': 0
+    }).limit(2).sort({
+        'title': 1
+    }).toArray((err, docs) => {
         assert.equal(err, null);
+        console.log(docs);
+        client.close();
     });
 
 });
