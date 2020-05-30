@@ -18,15 +18,13 @@ client.connect((err) => {
     let db = client.db(dbName);
     const collection = db.collection('tweets');
 
-    collection.findOneAndUpdate({
-        title: 'Vespa'
-    }, {
-        $set: {
-            sponsored: true
-        } // when we don't specify returnOrigin, it by default return the original doc (before update)
-    }, (err, doc) => {
+    collection.countDocuments({
+        likes: {
+            $gte: 20
+        }
+    }, (err, count) => { //the result will be stored in the second param
         assert.equal(err, null);
-        console.log(doc);
+        console.log(count);
         client.close();
     });
 
