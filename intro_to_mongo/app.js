@@ -20,10 +20,11 @@ client.connect((err) => {
 
     //find all and store in Array
     collection.find({
-        title: 'Water'
+        likes: { $gte: 20 }
     }, {
-        projection: { 
-            _id: 0 }
+        projection: {
+            _id: 0
+        }
     }).toArray((err, docs) => {
         assert.equal(err, null);
         console.log(`Found ${docs.length} document(s):`);
