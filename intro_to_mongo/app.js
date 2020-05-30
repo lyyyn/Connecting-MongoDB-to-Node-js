@@ -21,11 +21,12 @@ client.connect((err) => {
     //find one docs only
     collection.findOne({
         likes: { $gte: 20 }
-    },(err, doc) => {
-        assert.equal(err, null);
-        console.log(`Found 1 document:`);
+    }).then(doc => {
+        console.log(`Search result:`);
         console.log(doc);
         client.close();
+    }).catch(err => {
+        assert.equal(err, null);
     });
 
 });
