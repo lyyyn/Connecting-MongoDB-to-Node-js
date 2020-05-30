@@ -19,9 +19,9 @@ client.connect((err) => {
     const collection = db.collection('tweets');
 
     //find one docs only
-    collection.findOne({
+    collection.find({
         likes: { $gte: 20 }
-    }).then(doc => {
+    }).toArray().then(doc => {
         console.log(`Search result:`);
         console.log(doc);
         client.close();
