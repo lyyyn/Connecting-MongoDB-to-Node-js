@@ -22,10 +22,11 @@ client.connect((err) => {
         likes: {
             $gte: 20
         }
-    }, (err, count) => { //the result will be stored in the second param
-        assert.equal(err, null);
+    }).then(count => {
         console.log(count);
         client.close();
+    }).catch(err => {
+        assert.equal(err, null);
     });
 
 });
