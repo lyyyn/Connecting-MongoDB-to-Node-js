@@ -25,12 +25,13 @@ client.connect((err) => {
     let db = client.db(dbName);
     const collection = db.collection('tweets');
     collection.insertOne(myFirstTweet, (err, result) => {
-        assert.equal(null,err);
-        console.log(result);
+        assert.equal(null, err);
+        assert.equal(1, result.insertedCount);
+        console.log('successfully insert a doc into collection');
         client.close(); //need to close db at the collection - async
     });
 
-    
+
 });
 
 // setTimeout(()=>{ //use timeout to close the db connection
