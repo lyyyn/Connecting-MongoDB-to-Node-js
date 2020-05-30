@@ -22,10 +22,8 @@ client.connect((err) => {
         title: 'Vespa'
     }, {
         $set: {
-            sponsored: false
-        }
-    }, {
-        returnOriginal: false //return the updated docs
+            sponsored: true
+        } // when we don't specify returnOrigin, it by default return the original doc (before update)
     }, (err, doc) => {
         assert.equal(err, null);
         console.log(doc);
