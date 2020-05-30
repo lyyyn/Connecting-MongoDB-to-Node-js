@@ -18,17 +18,18 @@ client.connect((err) => {
     let db = client.db(dbName);
     const collection = db.collection('tweets');
 
-    collection.updateOne({
+    collection.findOneAndUpdate({
         title: 'Vespa'
-    },{
+    }, {
         $set: {
-            sponsored: true
+            sponsored: false
         }
-    }).then(result => {
-        assert.equal(2, result.result.n);
-        client.close();
-    }).catch(err => {
+    }, {
+        returnOriginal: false //return the updated docs
+    }, (err, doc) => {
         assert.equal(err, null);
+        console.log(doc);
+        client.close();
     });
 
 });
